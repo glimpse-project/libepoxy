@@ -1,8 +1,6 @@
 project('libepoxy', 'c', version: '1.5.0',
         default_options: [
-          'buildtype=debugoptimized',
-          'c_std=gnu99',
-          'warning_level=1',
+          'c_std=gnu11',
         ],
         license: 'MIT',
         meson_version: '>= 0.39.1')

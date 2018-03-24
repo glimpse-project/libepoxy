@@ -174,7 +174,11 @@
 #include "dispatch_common.h"
 
 #ifdef __APPLE__
+#ifdef __ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__
+#define GLX_LIB NULL
+#else
 #define GLX_LIB "/opt/X11/lib/libGL.1.dylib"
+#endif
 #elif defined(__ANDROID__)
 #define GLX_LIB "libGLESv2.so"
 #else
@@ -190,6 +194,11 @@
 #define EGL_LIB "libEGL.dll"
 #define GLES1_LIB "libGLES_CM.dll"
 #define GLES2_LIB "libGLESv2.dll"
+#elif defined(__APPLE__) && defined(__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__)
+#define EGL_LIB NULL
+#define GLES1_LIB NULL
+#define GLES2_LIB NULL
+#define OPENGL_LIB NULL
 #else
 #define EGL_LIB "libEGL.so.1"
 #define GLES1_LIB "libGLESv1_CM.so.1"
@@ -645,9 +654,11 @@ epoxy_gl_dlsym(const char *name)
 #ifdef _WIN32
     return do_dlsym(&api.gl_handle, "OPENGL32", name, true);
 #elif defined(__APPLE__)
-    return do_dlsym(&api.gl_handle,
-                    "/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL",
-                    name, true);
+    //return NULL;
+    return do_dlsym(&api.gl_handle, NULL, name, true);
+    //return do_dlsym(&api.gl_handle,
+    //                "/System/Library/Frameworks/OpenGLES.framework/Versions/Current/OpenGLES",
+    //                name, true);
 #elif defined(OPENGL_LIB)
     void *sym;
 
