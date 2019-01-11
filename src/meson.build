@@ -60,7 +60,7 @@ endif
 
 epoxy_deps = [ dl_dep, ]
 if host_system == 'windows'
-  epoxy_deps += [ opengl32_dep, gdi32_dep ]
+  epoxy_deps += [ opengl32_dep, user32_dep, gdi32_dep ]
 endif
 
 libepoxy = library(

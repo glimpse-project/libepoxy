@@ -185,6 +185,7 @@ endif
 # opengl32.  But that's the only GL provider, anyway.
 if host_system == 'windows'
   opengl32_dep = cc.find_library('opengl32', required: true)
+  user32_dep = cc.find_library('user32', required: true)
 
   # When building against static libraries, we need to control
   # the order of the dependencies, and gdi32 provides symbols
