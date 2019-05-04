@@ -160,7 +160,8 @@ if build_wgl
 endif
 
 # Apple
-if host_machine.system().contains('darwin')
+if host_machine.system().contains('darwin') and \
+    cc.get_define('__ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__') == ''
   opengl_dep = dependency('appleframeworks', modules: ['OpenGL', 'Carbon'], required: true)
 
   cgl_tests = [

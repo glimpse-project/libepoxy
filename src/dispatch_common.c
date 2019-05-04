@@ -174,10 +174,17 @@
 #include "dispatch_common.h"
 
 #if defined(__APPLE__)
+#ifdef __ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__
+#define EGL_LIB NULL
+#define OPENGL_LIB NULL
+#define GLES1_LIB NULL
+#define GLES2_LIB NULL
+#else
 #define GLX_LIB "/opt/X11/lib/libGL.1.dylib"
 #define OPENGL_LIB "/System/Library/Frameworks/OpenGL.framework/Versions/Current/OpenGL"
 #define GLES1_LIB "libGLESv1_CM.so"
 #define GLES2_LIB "libGLESv2.so"
+#endif
 #elif defined(__ANDROID__)
 #define GLX_LIB "libGLESv2.so"
 #define EGL_LIB "libEGL.so"
